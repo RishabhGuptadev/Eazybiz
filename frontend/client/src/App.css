@@ -1,0 +1,9 @@
+body { 
+  background-color: black;
+}
+
+.styled-label { 
+  color: white;
+  padding: 12px 2px;
+  font-family: "BlinkMacSystemFont";
+}

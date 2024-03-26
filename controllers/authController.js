@@ -44,12 +44,16 @@ export const loginController = async (req, res) => {
   const { email, password } = req.body;
 
   const emailExist = await userModel.findOne({ email });
-  const { name, phone, address, role } = emailExist;
   if (!emailExist) {
-    res.status(401).send({
-      status: 401,
+    res.status(200).send({
+      status: false,
       message: "Email doesn't exist, Please register",
-      user: { name, email, address, phone },
+      user: {
+        name: emailExist?.name,
+        email: emailExist?.email,
+        address: emailExist?.address,
+        phone: emailExist?.phone,
+      },
     });
   } else {
     const hashedPassword = emailExist?.password;
@@ -58,7 +62,12 @@ export const loginController = async (req, res) => {
       res.status(200).send({
         status: 200,
         message: "Log in Successful",
-        user: { name, email, address, phone, role },
+        user: {
+          name: emailExist?.name,
+          email: emailExist?.email,
+          address: emailExist?.address,
+          phone: emailExist?.phone,
+        },
       });
     }
   }
